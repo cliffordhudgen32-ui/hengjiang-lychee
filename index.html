@@ -284,6 +284,15 @@ body{padding-bottom:60px}
 .bn-item.active .bn-icon{position:relative}
 .bn-item.active .bn-icon::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#1E4D3A}
 
+
+/* ===== PAGE SWITCHING ===== */
+.page-content{display:none;width:100%;min-height:100vh;padding-bottom:70px}
+.page-content.active{display:block}
+.placeholder-page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:40px 24px;text-align:center}
+.placeholder-icon{width:80px;height:80px;border-radius:50%;background:rgba(139,69,19,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.placeholder-icon svg{width:36px;height:36px;stroke:#8B4513;fill:none;stroke-width:1.5}
+.placeholder-title{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.placeholder-desc{font-size:13px;color:rgba(26,26,26,0.4);line-height:1.8}
 </style>
 </head>
 
@@ -323,7 +332,10 @@ body{padding-bottom:60px}
       <span style="position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:#c43040;color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:600">2</span>
     </button>
   </div>
+
 </nav>
+
+<div id="page-home" class="page-content active">
 
 <!-- Hero -->
 <section class="hero">
@@ -529,21 +541,52 @@ body{padding-bottom:60px}
   <div class="footer-copy">© 2026 横江迟熟荔枝 · 品质保证 值得信赖</div>
 </footer>
 
+</div><!-- end page-home -->
+
+<div id="page-category" class="page-content">
+  <div class="placeholder-page">
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+    <div class="placeholder-title">产品分类</div>
+    <div class="placeholder-desc">怀枝 · 先进奉 · 鸡嘴荔<br>更多品种即将上线</div>
+  </div>
+</div>
+
+<div id="page-sale" class="page-content">
+  <div class="placeholder-page">
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    </div>
+    <div class="placeholder-title">特惠活动</div>
+    <div class="placeholder-desc">限时优惠 · 产地直发<br>手慢无，错过再等一年</div>
+  </div>
+</div>
+
+<div id="page-me" class="page-content">
+  <div class="placeholder-page">
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="placeholder-title">我的</div>
+    <div class="placeholder-desc">登录后查看订单、收藏和优惠券</div>
+  </div>
+</div>
 <!-- Bottom Navigation -->
 <nav class="bottom-nav" id="bottomNav">
-  <a class="bn-item active" href="#" onclick="switchTab(this,event)">
+  <a class="bn-item active" href="#" data-target="page-home" onclick="switchTab(this,event)">
     <div class="bn-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
     <span class="bn-label">首页</span>
   </a>
-  <a class="bn-item" href="#" onclick="switchTab(this,event)">
+  <a class="bn-item" href="#" data-target="page-category" onclick="switchTab(this,event)">
     <div class="bn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
     <span class="bn-label">分类</span>
   </a>
-  <a class="bn-item" href="#giftbox" onclick="switchTab(this,event)">
+  <a class="bn-item" href="#" data-target="page-sale" onclick="switchTab(this,event)">
     <div class="bn-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
     <span class="bn-label">特惠</span>
   </a>
-  <a class="bn-item" href="#" onclick="switchTab(this,event)">
+  <a class="bn-item" href="#" data-target="page-me" onclick="switchTab(this,event)">
     <div class="bn-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     <span class="bn-label">我的</span>
   </a>
@@ -581,8 +624,31 @@ if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 // Prevent body overflow-x
 document.body.style.overflowX='hidden';
 
-// Bottom nav tab
-function switchTab(el,e){e.preventDefault();document.querySelectorAll('.bn-item').forEach(function(t){t.classList.remove('active')});el.classList.add('active');var h=el.getAttribute('href');if(h&&h!=='#'){var tgt=document.querySelector(h);if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'})}}
+// Bottom nav tab switching
+function switchTab(el, e) {
+  e.preventDefault();
+  var target = el.getAttribute('data-target');
+  if (!target) return;
+
+  // Update active tab
+  document.querySelectorAll('.bn-item').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+
+  // Switch page
+  document.querySelectorAll('.page-content').forEach(function(p) { p.classList.remove('active'); });
+  var page = document.getElementById(target);
+  if (page) {
+    page.classList.add('active');
+    // Scroll to top of the new page
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Re-trigger scroll reveal for elements in the new page
+    page.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.remove('visible');
+      revObs.observe(el);
+    });
+  }
+}
 
 </script>
 </html>
+
